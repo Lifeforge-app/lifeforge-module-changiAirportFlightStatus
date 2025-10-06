@@ -1,0 +1,10 @@
+{
+  "name": "changi-airport-flight-status",
+  "version": "dev. 25w41",
+  "description": "Get to know the latest flight information at Changi Airport",
+  "scripts": {
+    "types": "cd client && bun tsc && cd ../server && bun tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
