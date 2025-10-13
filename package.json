@@ -3,8 +3,16 @@
   "version": "dev. 25w41",
   "description": "Get to know the latest flight information at Changi Airport",
   "scripts": {
-    "types": "cd client && bun tsc && cd ../server && bun tsc"
+    "types": "cd client && bun tsc"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@iconify/react": "^6.0.2",
+    "@tanstack/react-query": "^5.90.2",
+    "clsx": "^2.1.1",
+    "lifeforge-ui": "workspace:*",
+    "shared": "workspace:*",
+    "vite": "^7.1.9",
+    "zod": "^4.1.12"
+  },
   "devDependencies": {}
 }
