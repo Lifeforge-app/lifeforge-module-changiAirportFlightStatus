@@ -7,5 +7,5 @@ export default {
   routes: {
     'changi-airport-flight-status': lazy(() => import('@'))
   },
-  category: '06.Information'
+  category: 'Information'
 } satisfies ModuleConfig
