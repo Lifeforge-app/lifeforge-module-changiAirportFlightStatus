@@ -5,7 +5,7 @@ export default {
   name: 'Changi Airport Flight Status',
   icon: 'tabler:plane',
   routes: {
-    'changi-airport-flight-status': lazy(() => import('@'))
+    '/': lazy(() => import('@'))
   },
   category: 'Information'
 } satisfies ModuleConfig
