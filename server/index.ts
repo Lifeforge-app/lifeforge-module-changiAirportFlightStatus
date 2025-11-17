@@ -93,7 +93,12 @@ export interface StatusMapping {
 
 const getFlight = forgeController
   .query()
-  .description('Get flight status from Changi Airport')
+  .description({
+    en: 'Get Changi Airport flight status for arrivals or departures',
+    ms: 'Dapatkan status penerbangan Lapangan Terbang Changi untuk ketibaan atau pelepasan',
+    'zh-CN': '获取樟宜机场的到达或出发航班状态',
+    'zh-TW': '獲取樟宜機場的到達或出發航班狀態'
+  })
   .input({
     query: z.object({
       type: z.enum(['arr', 'dep'])
