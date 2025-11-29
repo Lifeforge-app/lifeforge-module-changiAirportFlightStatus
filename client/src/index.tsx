@@ -62,10 +62,10 @@ function ChangiAirportFlightStatus() {
             </div>
           }
           className="component-bg-with-hover! w-min min-w-56"
-          setValue={value => {
+          value={type}
+          onChange={value => {
             setType(value)
           }}
-          value={type}
         >
           {SEARCH_TYPE.map(([name, icon, value]) => (
             <ListboxOption key={value} icon={icon} label={name} value={value} />
@@ -74,8 +74,8 @@ function ChangiAirportFlightStatus() {
         <SearchInput
           namespace="apps.changiAirportFlightStatus"
           searchTarget="flight"
-          setValue={setSearchQuery}
           value={searchQuery}
+          onChange={setSearchQuery}
         />
       </div>
       <Scrollbar className="w-full flex-1">
