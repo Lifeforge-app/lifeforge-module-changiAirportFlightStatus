@@ -1,6 +1,12 @@
 {
-  "name": "changi-airport-flight-status",
-  "version": "dev. 25w41",
+  "name": "@lifeforge/lifeforge--changi-airport-flight-status",
+  "displayName": "Changi Airport Flight Status",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lifeforge-app/lifeforge-module-changiAirportFlightStatus.git"
+  },
+  "version": "0.0.1",
+  "author": "Melvin Chia <melvinchia623600@gmail.com>",
   "description": "Get to know the latest flight information at Changi Airport",
   "scripts": {
     "types": "cd client && bun tsc"
@@ -18,5 +24,16 @@
   "devDependencies": {
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0"
+  },
+  "exports": {
+    "./server": "./server/index.ts",
+    "./manifest": {
+      "types": "./manifest.d.ts",
+      "default": "./manifest.ts"
+    }
+  },
+  "lifeforge": {
+    "icon": "tabler:plane",
+    "category": "Information"
   }
 }
