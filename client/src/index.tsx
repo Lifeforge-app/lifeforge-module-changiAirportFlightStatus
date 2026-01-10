@@ -1,4 +1,3 @@
-import forgeAPI from '@/utils/forgeAPI'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
@@ -11,6 +10,10 @@ import {
   WithQuery
 } from 'lifeforge-ui'
 import { useState } from 'react'
+
+import forgeAPI from '@/utils/forgeAPI'
+
+import './index.css'
 
 const STATUSES = {
   Departed: ['text-green-500', 'tabler:plane-departure', 'bg-green-500/20'],
