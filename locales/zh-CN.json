@@ -1,6 +1,6 @@
 {
   "title": "樟宜机场航班状态",
-  "description": "了解樟宜机场的最新航班信息",
+  "description": "新加坡樟宜机场的实时到达和出发信息。",
   "items": {
     "flight": "航班"
   }

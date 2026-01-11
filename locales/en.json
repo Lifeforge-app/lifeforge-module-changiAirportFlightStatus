@@ -1,6 +1,6 @@
 {
   "title": "Changi Airport Flight Status",
-  "description": "Get to know the latest flight information at Changi Airport",
+  "description": "Live arrival and departure information from Singapore Changi Airport.",
   "items": {
     "flight": "Flight"
   }
