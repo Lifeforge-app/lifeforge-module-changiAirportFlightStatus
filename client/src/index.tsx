@@ -42,7 +42,7 @@ function ChangiAirportFlightStatus() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const flightsQuery = useQuery(
-    forgeAPI.changiAirportFlightStatus.getFlight.input({ type }).queryOptions()
+    forgeAPI.getFlight.input({ type }).queryOptions()
   )
 
   return (

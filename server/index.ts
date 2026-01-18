@@ -1,5 +1,8 @@
-import { forgeController, forgeRouter } from '@functions/routes'
+import { forgeRouter } from '@lifeforge/server-utils'
+import { createForge } from '@lifeforge/server-utils'
 import z from 'zod'
+
+const forge = createForge({})
 
 const cache = new Map()
 
@@ -91,14 +94,9 @@ export interface StatusMapping {
   status_text_color: string
 }
 
-const getFlight = forgeController
+const getFlight = forge
   .query()
-  .description({
-    en: 'Get Changi Airport flight status for arrivals or departures',
-    ms: 'Dapatkan status penerbangan Lapangan Terbang Changi untuk ketibaan atau pelepasan',
-    'zh-CN': '获取樟宜机场的到达或出发航班状态',
-    'zh-TW': '獲取樟宜機場的到達或出發航班狀態'
-  })
+  .description('Get Changi Airport flight status for arrivals or departures')
   .input({
     query: z.object({
       type: z.enum(['arr', 'dep'])
