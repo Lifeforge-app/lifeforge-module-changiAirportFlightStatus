@@ -1,6 +1,8 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
+import { useState } from 'react'
+
 import {
   Listbox,
   ListboxOption,
@@ -8,8 +10,7 @@ import {
   Scrollbar,
   SearchInput,
   WithQuery
-} from 'lifeforge-ui'
-import { useState } from 'react'
+} from '@lifeforge/ui'
 
 import forgeAPI from '@/utils/forgeAPI'
 
