@@ -1,5 +1,4 @@
-import { forgeRouter } from '@lifeforge/server-utils'
-import { createForge } from '@lifeforge/server-utils'
+import { forgeRouter, writeContractFileToClient , createForge } from '@lifeforge/server-utils'
 import z from 'zod'
 
 const forge = createForge({})
@@ -95,14 +94,18 @@ export interface StatusMapping {
 }
 
 const getFlight = forge
-  .query()
-  .description('Get Changi Airport flight status for arrivals or departures')
-  .input({
-    query: z.object({
-      type: z.enum(['arr', 'dep'])
-    })
+  .query({
+    description: 'Get Changi Airport flight status for arrivals or departures',
+    input: {
+      query: z.object({
+        type: z.enum(['arr', 'dep'])
+      })
+    },
+    output: {
+      OK: z.any()
+    }
   })
-  .callback(async ({ query: { type } }) => {
+  .callback(async ({ query: { type }, response }) => {
     if (
       cache.has('flights') &&
       cache.get('searchType') === type &&
@@ -110,9 +113,9 @@ const getFlight = forge
     ) {
       const data = cache.get('flights')
 
-      return data as {
+      return response.ok(data as {
         getFlights: GetFlights
-      }
+      })
     }
 
     const API_key = await fetch(
@@ -223,11 +226,15 @@ const getFlight = forge
     cache.set('searchType', type)
     lastFetch = +new Date()
 
-    return data as {
+    return response.ok(data as {
       getFlights: GetFlights
-    }
+    })
   })
 
-export default forgeRouter({
+const routes = forgeRouter({
   getFlight
 })
+
+writeContractFileToClient(routes, import.meta.dirname)
+
+export default routes
