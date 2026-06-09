@@ -120,9 +120,7 @@ const getFlight = forge
     ) {
       const data = cache.get('flights')
 
-      return response.ok(
-        data as z.infer<typeof GetFlightsSchema>
-      )
+      return response.ok(data as z.infer<typeof GetFlightsSchema>)
     }
 
     const API_key = await fetch(
@@ -233,9 +231,7 @@ const getFlight = forge
     cache.set('searchType', type)
     lastFetch = +new Date()
 
-    return response.ok(
-      data as z.infer<typeof GetFlightsSchema>
-    )
+    return response.ok(data as z.infer<typeof GetFlightsSchema>)
   })
 
 const routes = forgeRouter({
