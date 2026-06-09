@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { useState } from 'react'
 
-import { Icon } from '@lifeforge/ui'
 import {
+  Icon,
   Listbox,
   ListboxOption,
   ModuleHeader,
@@ -13,8 +13,6 @@ import {
 } from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
-
-import './index.css'
 
 const STATUSES = {
   Departed: ['text-green-500', 'tabler:plane-departure', 'bg-green-500/20'],
