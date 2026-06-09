@@ -1,8 +1,8 @@
-import { Icon } from '@iconify/react/dist/iconify.js'
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
 import { useState } from 'react'
 
+import { Icon } from '@lifeforge/ui'
 import {
   Listbox,
   ListboxOption,
