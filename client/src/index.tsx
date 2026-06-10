@@ -73,7 +73,6 @@ function ChangiAirportFlightStatus() {
           ))}
         </Listbox>
         <SearchInput
-          namespace="apps.changiAirportFlightStatus"
           searchTarget="flight"
           value={searchQuery}
           onChange={setSearchQuery}
