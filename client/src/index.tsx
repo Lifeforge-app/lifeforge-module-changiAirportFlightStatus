@@ -37,7 +37,6 @@ const SEARCH_TYPE = [
 
 function ChangiAirportFlightStatus() {
   const [type, setType] = useState<'dep' | 'arr'>('dep')
-
   const [searchQuery, setSearchQuery] = useState('')
 
   const flightsQuery = useQuery(
