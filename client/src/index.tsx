@@ -48,7 +48,8 @@ function ChangiAirportFlightStatus() {
       <ModuleHeader />
       <div className="mb-6 flex items-center gap-2">
         <Listbox
-          buttonContent={
+          className="component-bg-with-hover! w-min min-w-56"
+          renderContent={() => (
             <div className="flex items-center gap-2">
               <Icon
                 className="size-6"
@@ -61,8 +62,7 @@ function ChangiAirportFlightStatus() {
                 {SEARCH_TYPE.find(([, , t]) => t === type)?.[0] || 'Departure'}
               </span>
             </div>
-          }
-          className="component-bg-with-hover! w-min min-w-56"
+          )}
           value={type}
           onChange={value => {
             setType(value)
