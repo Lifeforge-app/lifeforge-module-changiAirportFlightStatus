@@ -1,33 +1,37 @@
 import { useQuery } from '@tanstack/react-query'
-import clsx from 'clsx'
 import { useState } from 'react'
 
 import {
+  Flex,
   Icon,
   Listbox,
   ListboxOption,
   ModuleHeader,
   Scrollbar,
   SearchInput,
+  TagChip,
+  Text,
   WithQuery
 } from '@lifeforge/ui'
 
 import { forgeAPI } from '@/manifest'
 
-const STATUSES = {
-  Departed: ['text-green-500', 'tabler:plane-departure', 'bg-green-500/20'],
-  Boarding: ['text-blue-500', 'tabler:users', 'bg-blue-500/20'],
-  'Gate Closed': ['text-red-500', 'tabler:door-off', 'bg-red-500/20'],
-  'Gate Closing': ['text-orange-500', 'tabler:door', 'bg-orange-500/20'],
-  'Gate Open': ['text-yellow-500', 'tabler:door-enter', 'bg-yellow-500/20'],
-  'New Gate': ['text-lime-500', 'tabler:transfer', 'bg-lime-500/20'],
-  'Re-timed': ['text-fuchsia-500', 'tabler:clock', 'bg-fuchsia-500/20'],
-  Scheduled: ['text-indigo-500', 'tabler:calendar-event', 'bg-indigo-500/20'],
-  'Last Call': ['text-pink-500', 'tabler:bell', 'bg-pink-500/20'],
-  Cancelled: ['text-red-500', 'tabler:ban', 'bg-red-500/20'],
-  Landed: ['text-blue-500', 'tabler:plane-arrival', 'bg-blue-500/20'],
-  Confirmed: ['text-green-500', 'tabler:check', 'bg-green-500/20'],
-  Delayed: ['text-red-500', 'tabler:clock-stop', 'bg-red-500/20']
+import * as styles from './index.css'
+
+const STATUSES: Record<string, { color: string; icon: string }> = {
+  Departed: { color: '#22c55e', icon: 'tabler:plane-departure' },
+  Boarding: { color: '#3b82f6', icon: 'tabler:users' },
+  'Gate Closed': { color: '#ef4444', icon: 'tabler:door-off' },
+  'Gate Closing': { color: '#f97316', icon: 'tabler:door' },
+  'Gate Open': { color: '#eab308', icon: 'tabler:door-enter' },
+  'New Gate': { color: '#84cc16', icon: 'tabler:transfer' },
+  'Re-timed': { color: '#d946ef', icon: 'tabler:clock' },
+  Scheduled: { color: '#6366f1', icon: 'tabler:calendar-event' },
+  'Last Call': { color: '#ec4899', icon: 'tabler:bell' },
+  Cancelled: { color: '#ef4444', icon: 'tabler:ban' },
+  Landed: { color: '#3b82f6', icon: 'tabler:plane-arrival' },
+  Confirmed: { color: '#22c55e', icon: 'tabler:check' },
+  Delayed: { color: '#ef4444', icon: 'tabler:clock-stop' }
 }
 
 const SEARCH_TYPE = [
@@ -46,24 +50,30 @@ function ChangiAirportFlightStatus() {
   return (
     <>
       <ModuleHeader />
-      <div className="mb-6 flex items-center gap-2">
+      <Flex
+        align="center"
+        direction={{ base: 'column', sm: 'row' }}
+        gap="sm"
+        mb="lg"
+      >
         <Listbox
-          className="component-bg-with-hover! w-min min-w-56"
+          minWidth="14rem"
           renderContent={() => (
-            <div className="flex items-center gap-2">
+            <Flex align="center" gap="xs">
               <Icon
-                className="size-6"
                 icon={
                   SEARCH_TYPE.find(([, , t]) => t === type)?.[1] ||
                   'tabler:plane-departure'
                 }
+                size="1.5rem"
               />
-              <span className="font-medium whitespace-nowrap">
+              <Text weight="medium" whiteSpace="nowrap">
                 {SEARCH_TYPE.find(([, , t]) => t === type)?.[0] || 'Departure'}
-              </span>
-            </div>
+              </Text>
+            </Flex>
           )}
           value={type}
+          width={{ base: '100%', sm: 'min-content' }}
           onChange={value => {
             setType(value)
           }}
@@ -77,13 +87,13 @@ function ChangiAirportFlightStatus() {
           value={searchQuery}
           onChange={setSearchQuery}
         />
-      </div>
-      <Scrollbar className="w-full flex-1">
+      </Flex>
+      <Scrollbar style={{ flex: 1, width: '100%' }}>
         <WithQuery query={flightsQuery}>
           {flights => (
-            <table className="mr-8 mb-8 w-max">
+            <table className={styles.table}>
               <thead>
-                <tr className="border-bg-200 text-bg-500 dark:border-bg-800 border-b-2">
+                <tr className={styles.headerRow}>
                   {[
                     'Status',
                     'Scheduled Time',
@@ -97,97 +107,80 @@ function ChangiAirportFlightStatus() {
                     'Estimated Time',
                     'Code Share'
                   ].map(column => (
-                    <th key={column} className={'p-2 font-medium'}>
+                    <th key={column} className={styles.headerCell}>
                       {column}
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {flights.getFlights.flights.map(flight => (
-                  <tr
-                    key={flight.flight_number + flight.scheduled_time}
-                    className="border-bg-200 dark:border-bg-800 border-b"
-                  >
-                    <td className="p-2 text-center whitespace-nowrap">
-                      <div
-                        className={clsx(
-                          'inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm whitespace-nowrap',
-                          STATUSES[
-                            flight.flight_status as keyof typeof STATUSES
-                          ]?.[0],
-                          STATUSES[
-                            flight.flight_status as keyof typeof STATUSES
-                          ]?.[2]
-                        )}
-                      >
-                        <Icon
-                          className="size-4"
-                          icon={
-                            STATUSES[
-                              flight.flight_status as keyof typeof STATUSES
-                            ]?.[1]
-                          }
+                {flights.getFlights.flights.map(flight => {
+                  const status = STATUSES[flight.flight_status]
+
+                  return (
+                    <tr
+                      key={flight.flight_number + flight.scheduled_time}
+                      className={styles.row}
+                    >
+                      <td className={styles.cell}>
+                        <TagChip
+                          as="span"
+                          color={status?.color}
+                          icon={status?.icon}
+                          label={flight.flight_status}
                         />
-                        {flight.flight_status}
-                      </div>
-                    </td>
-                    <td className="p-2 text-center whitespace-nowrap">
-                      {flight.scheduled_time}
-                    </td>
-                    <td className="p-2 text-center whitespace-nowrap">
-                      {flight.flight_number}
-                    </td>
-                    <td className="p-2 text-center whitespace-nowrap">
-                      <div className="flex items-center gap-2">
-                        {'AB'.includes(flight.aircraft_type[0]) ? (
-                          <Icon
-                            icon={
-                              flight.aircraft_type[0] === 'B'
-                                ? 'simple-icons:boeing'
-                                : 'simple-icons:airbus'
-                            }
+                      </td>
+                      <td className={styles.cell}>{flight.scheduled_time}</td>
+                      <td className={styles.cell}>{flight.flight_number}</td>
+                      <td className={styles.cell}>
+                        <Flex align="center" gap="xs">
+                          {'AB'.includes(flight.aircraft_type[0]) ? (
+                            <Icon
+                              icon={
+                                flight.aircraft_type[0] === 'B'
+                                  ? 'simple-icons:boeing'
+                                  : 'simple-icons:airbus'
+                              }
+                            />
+                          ) : (
+                            ''
+                          )}
+                          {flight.aircraft_type}
+                        </Flex>
+                      </td>
+                      <td className={styles.cellLeft}>
+                        <Flex align="center" gap="xs">
+                          <img
+                            alt={flight.airline_details.name}
+                            src={flight.airline_details.logo_url}
+                            style={{ height: '1.5rem', width: '1.5rem' }}
                           />
-                        ) : (
-                          ''
-                        )}
-                        {flight.aircraft_type}
-                      </div>
-                    </td>
-                    <td className="p-2 text-left whitespace-nowrap">
-                      <div className="flex items-center gap-2">
-                        <img
-                          alt={flight.airline_details.name}
-                          className="size-6"
-                          src={flight.airline_details.logo_url}
-                        />
-                        {flight.airline_details.name} ({flight.airline})
-                      </div>
-                    </td>
-                    <td className="p-2 text-center whitespace-nowrap">
-                      {flight.airport_details.name} ({flight.airport})
-                    </td>
-                    <td className="p-2 text-center whitespace-nowrap">
-                      T{flight.terminal}
-                    </td>
-                    <td className="p-2 text-center whitespace-nowrap">
-                      {type === 'dep'
-                        ? flight.current_gate
-                        : flight.display_gate}
-                    </td>
-                    <td className="p-2 text-center whitespace-nowrap">
-                      {type === 'dep'
-                        ? flight.check_in_row
-                        : flight.display_belt}
-                    </td>
-                    <td className="p-2 text-center whitespace-nowrap">
-                      {flight.estimated_timestamp}
-                    </td>
-                    <td className="p-2 text-left whitespace-nowrap">
-                      {flight.slave_flights.join(', ')}
-                    </td>
-                  </tr>
-                ))}
+                          {flight.airline_details.name} ({flight.airline})
+                        </Flex>
+                      </td>
+                      <td className={styles.cell}>
+                        {flight.airport_details.name} ({flight.airport})
+                      </td>
+                      <td className={styles.cell}>T{flight.terminal}</td>
+                      <td className={styles.cell}>
+                        {type === 'dep'
+                          ? flight.current_gate
+                          : flight.display_gate}
+                      </td>
+                      <td className={styles.cell}>
+                        {type === 'dep'
+                          ? flight.check_in_row
+                          : flight.display_belt}
+                      </td>
+                      <td className={styles.cell}>
+                        {flight.estimated_timestamp}
+                      </td>
+                      <td className={styles.cellLeft}>
+                        {flight.slave_flights.join(', ')}
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           )}
