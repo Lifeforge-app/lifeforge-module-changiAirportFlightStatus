@@ -18,25 +18,29 @@ const FlightSchema = z.object({
   actual_timestamp: z.null(),
   aircraft_type: z.string(),
   airline: z.string(),
-  airline_details: z.object({
-    logo_url: z.string(),
-    code: z.string(),
-    name: z.string(),
-    name_zh: z.string(),
-    name_zh_hant: z.string().nullable(),
-    transfer_counters: z.string().nullable(),
-    transit: z.string()
-  }),
+  airline_details: z
+    .object({
+      logo_url: z.string(),
+      code: z.string(),
+      name: z.string(),
+      name_zh: z.string(),
+      name_zh_hant: z.string().nullable(),
+      transfer_counters: z.string().nullable(),
+      transit: z.string()
+    })
+    .nullable(),
   airport: z.string(),
-  airport_details: z.object({
-    code: z.string(),
-    country_code: z.string(),
-    lat: z.string(),
-    lng: z.string(),
-    name: z.string(),
-    name_zh: z.string(),
-    name_zh_hant: z.string()
-  }),
+  airport_details: z
+    .object({
+      code: z.string(),
+      country_code: z.string(),
+      lat: z.string(),
+      lng: z.string(),
+      name: z.string(),
+      name_zh: z.string(),
+      name_zh_hant: z.string()
+    })
+    .nullable(),
   check_in_row: z.string().nullable(),
   current_gate: z.string().nullable(),
   direction: z.string(),

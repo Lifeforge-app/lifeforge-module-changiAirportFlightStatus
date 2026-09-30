@@ -150,16 +150,20 @@ function ChangiAirportFlightStatus() {
                       </td>
                       <td className={styles.cellLeft}>
                         <Flex align="center" gap="xs">
-                          <img
-                            alt={flight.airline_details.name}
-                            src={flight.airline_details.logo_url}
-                            style={{ height: '1.5rem', width: '1.5rem' }}
-                          />
-                          {flight.airline_details.name} ({flight.airline})
+                          {flight.airline_details?.logo_url && (
+                            <img
+                              alt={flight.airline_details.name}
+                              src={flight.airline_details.logo_url}
+                              style={{ height: '1.5rem', width: '1.5rem' }}
+                            />
+                          )}
+                          {flight.airline_details?.name ?? flight.airline} (
+                          {flight.airline})
                         </Flex>
                       </td>
                       <td className={styles.cell}>
-                        {flight.airport_details.name} ({flight.airport})
+                        {flight.airport_details?.name ?? flight.airport} (
+                        {flight.airport})
                       </td>
                       <td className={styles.cell}>T{flight.terminal}</td>
                       <td className={styles.cell}>

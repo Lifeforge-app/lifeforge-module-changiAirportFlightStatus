@@ -51,93 +51,107 @@ export const contract = {
                       "type": "string"
                     },
                     "airline_details": {
-                      "type": "object",
-                      "properties": {
-                        "logo_url": {
-                          "type": "string"
-                        },
-                        "code": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "name_zh": {
-                          "type": "string"
-                        },
-                        "name_zh_hant": {
-                          "anyOf": [
-                            {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "logo_url": {
                               "type": "string"
                             },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "transfer_counters": {
-                          "anyOf": [
-                            {
+                            "code": {
                               "type": "string"
                             },
-                            {
-                              "type": "null"
+                            "name": {
+                              "type": "string"
+                            },
+                            "name_zh": {
+                              "type": "string"
+                            },
+                            "name_zh_hant": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "transfer_counters": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "transit": {
+                              "type": "string"
                             }
-                          ]
+                          },
+                          "required": [
+                            "logo_url",
+                            "code",
+                            "name",
+                            "name_zh",
+                            "name_zh_hant",
+                            "transfer_counters",
+                            "transit"
+                          ],
+                          "additionalProperties": false
                         },
-                        "transit": {
-                          "type": "string"
+                        {
+                          "type": "null"
                         }
-                      },
-                      "required": [
-                        "logo_url",
-                        "code",
-                        "name",
-                        "name_zh",
-                        "name_zh_hant",
-                        "transfer_counters",
-                        "transit"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     "airport": {
                       "type": "string"
                     },
                     "airport_details": {
-                      "type": "object",
-                      "properties": {
-                        "code": {
-                          "type": "string"
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "country_code": {
+                              "type": "string"
+                            },
+                            "lat": {
+                              "type": "string"
+                            },
+                            "lng": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "name_zh": {
+                              "type": "string"
+                            },
+                            "name_zh_hant": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "code",
+                            "country_code",
+                            "lat",
+                            "lng",
+                            "name",
+                            "name_zh",
+                            "name_zh_hant"
+                          ],
+                          "additionalProperties": false
                         },
-                        "country_code": {
-                          "type": "string"
-                        },
-                        "lat": {
-                          "type": "string"
-                        },
-                        "lng": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "name_zh": {
-                          "type": "string"
-                        },
-                        "name_zh_hant": {
-                          "type": "string"
+                        {
+                          "type": "null"
                         }
-                      },
-                      "required": [
-                        "code",
-                        "country_code",
-                        "lat",
-                        "lng",
-                        "name",
-                        "name_zh",
-                        "name_zh_hant"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     "check_in_row": {
                       "anyOf": [
